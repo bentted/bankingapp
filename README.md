@@ -1,61 +1,37 @@
 # Kivy Banking Application
 
-This project is a banking application built using Kivy, a Python framework for developing multitouch applications. The application includes features for user registration and sign-in, allowing users to manage their banking accounts.
+This project is a comprehensive banking application developed using Kivy, a Python framework designed for building multitouch applications. It provides a user-friendly interface for managing banking accounts, including features such as user registration, sign-in, account management, and transaction history.
 
-## Project Structure
+## Project Overview
 
-```
-kivy-banking-app
-├── assets
-│   └── styles
-│       └── main.kv
-├── src
-│   ├── main.py
-│   ├── screens
-│   │   ├── sign_in_screen.py
-│   │   └── register_screen.py
-│   └── utils
-│       └── database.py
-├── requirements.txt
-└── README.md
-```
+The application is structured to ensure modularity and ease of maintenance. It includes separate modules for user interface design, business logic, and database management.
 
-## Features
+## Key Features
 
-- User registration
-- User sign-in
-- Account management
-- Transaction history
+- **User Registration**: 
+  - New users can securely create accounts by providing their details.
+  - Passwords are securely stored to ensure user privacy.
 
-## Installation
+- **User Sign-In**: 
+  - Existing users can log in using their credentials to access their accounts.
+  - Includes basic error handling for incorrect credentials.
 
-1. Clone the repository:
-   ```
+- **Account Management**:
+  - **Deposit**: Users can deposit money into their accounts.
+  - **Withdrawal**: Users can withdraw money, with checks for sufficient balance.
+  - **Check Balance**: Users can view their current account balance.
+  - **Transaction Log**: A detailed log of all transactions (deposits, withdrawals) is available for users to review.
+
+- **Transaction History**:
+  - Displays a chronological list of all transactions, including timestamps and transaction types.
+
+## Getting Started
+
+Follow the steps below to set up and run the application:
+
+1. **Clone the Repository**:
+   ```bash
    git clone <repository-url>
    cd kivy-banking-app
-   ```
-
-2. Install the required dependencies:
-   ```
-   pip install -r requirements.txt
-   ```
-
-## Usage
-
-To run the application, execute the following command:
-```
+pip install -r requirements.txt
 python src/main.py
-```
-
-## Screens
-
-- **Sign In Screen**: Allows users to enter their credentials to access their accounts.
-- **Register Screen**: Enables new users to create an account by providing necessary information.
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a pull request or open an issue for any suggestions or improvements.
-
-## License
-
-This project is licensed under the MIT License. See the LICENSE file for more details.

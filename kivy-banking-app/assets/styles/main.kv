@@ -1,0 +1,88 @@
+<styles>
+<screen>SignInScreen:
+    name: 'sign_in'
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 10
+        spacing: 10
+
+        Label:
+            text: 'Sign In'
+            font_size: 32
+            size_hint_y: None
+            height: 50
+
+        TextInput:
+            id: username_input
+            hint_text: 'Enter your name'
+            multiline: False
+
+        TextInput:
+            id: pin_input
+            hint_text: 'Enter your PIN'
+            password: True
+            multiline: False
+
+        Button:
+            text: 'Sign In'
+            on_press: app.sign_in(username_input.text, pin_input.text)
+
+        Button:
+            text: 'Register'
+            on_press: app.root.current = 'register'
+
+<screen>RegisterScreen:
+    name: 'register'
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 10
+        spacing: 10
+
+        Label:
+            text: 'Register New Account'
+            font_size: 32
+            size_hint_y: None
+            height: 50
+
+        TextInput:
+            id: reg_username_input
+            hint_text: 'Enter your name'
+            multiline: False
+
+        TextInput:
+            id: reg_pin_input
+            hint_text: 'Enter a 4-digit PIN'
+            password: True
+            multiline: False
+
+        Button:
+            text: 'Register'
+            on_press: app.register(reg_username_input.text, reg_pin_input.text)
+
+        Button:
+            text: 'Back to Sign In'
+            on_press: app.root.current = 'sign_in'
+
+<AccountManagementScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: "Account Management"
+            font_size: 24
+        Button:
+            text: "Deposit"
+            on_press: root.deposit()
+        Button:
+            text: "Withdraw"
+            on_press: root.withdraw()
+        Button:
+            text: "Check Balance"
+            on_press: root.check_balance()
+        Button:
+            text: "View Transactions"
+            on_press: root.view_transactions()
+        Button:
+            text: "Logout"
+            on_press: app.root.current = 'sign_in_screen'
+</screen>
+</styles>

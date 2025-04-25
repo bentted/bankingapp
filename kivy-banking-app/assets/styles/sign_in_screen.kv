@@ -1,0 +1,67 @@
+<SignInScreen>:
+    name: 'sign_in'
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            source: 'assets/images/wassersbank.png'
+            size: self.size
+            pos: self.pos
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 20
+
+        Label:
+            text: 'Welcome to Wassers Bank!'
+            font_size: 48
+            color: 0, 0, 0, 1
+            size_hint: (1, None)
+            height: 100
+            pos_hint: {'center_x': 0.5}
+
+        Label:
+            text: 'Sign In'
+            font_size: 32
+            color: 0, 0, 0, 1
+            size_hint: (1, None)
+            height: 50
+            pos_hint: {'center_x': 0.5}
+
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: 10
+            size_hint: (None, None)
+            width: 300
+            height: 150
+            pos_hint: {'center_x': 0.5}
+            TextInput:
+                id: username_input
+                hint_text: 'Enter your name'
+                multiline: False
+                size_hint: (None, None)
+                width: 300
+                height: 50
+            TextInput:
+                id: pin_input
+                hint_text: 'Enter your PIN'
+                password: True
+                multiline: False
+                size_hint: (None, None)
+                width: 300
+                height: 50
+
+        GridLayout:
+            cols: 2
+            spacing: 10
+            size_hint: (None, None)
+            width: 300
+            height: 50
+            pos_hint: {'center_x': 0.5}
+            Button:
+                text: 'Sign In'
+                on_press: root.sign_in(username_input.text, pin_input.text)
+            Button:
+                text: 'Register'
+                on_press: root.register()

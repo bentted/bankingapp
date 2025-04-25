@@ -1,0 +1,55 @@
+<AccountManagementScreen>:
+    name: 'account_management'
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 20
+
+        Label:
+            id: account_number_label
+            text: 'Account Number: '
+            font_size: 18
+            size_hint: (None, None)
+            width: 300
+            height: 50
+            pos_hint: {'center_x': 0.5}
+
+        Button:
+            text: 'Deposit'
+            size_hint: (None, None)
+            width: 300
+            height: 50
+            pos_hint: {'center_x': 0.5}
+            on_press: root.deposit()
+
+        Button:
+            text: 'Withdrawal'
+            size_hint: (None, None)
+            width: 300
+            height: 50
+            pos_hint: {'center_x': 0.5}
+            on_press: root.withdraw()
+
+        Button:
+            text: 'Check Balance'
+            size_hint: (None, None)
+            width: 300
+            height: 50
+            pos_hint: {'center_x': 0.5}
+            on_press: root.check_balance()
+
+        Button:
+            text: 'Transaction History'
+            size_hint: (None, None)
+            width: 300
+            height: 50
+            pos_hint: {'center_x': 0.5}
+            on_press: root.show_transactions()
+
+        Button:
+            text: 'Exit'
+            size_hint: (None, None)
+            width: 300
+            height: 50
+            pos_hint: {'center_x': 0.5}
+            on_press: app.root.current = 'sign_in'

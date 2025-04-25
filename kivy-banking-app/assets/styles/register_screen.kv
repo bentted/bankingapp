@@ -1,0 +1,38 @@
+<RegisterScreen>:
+    name: 'register'
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 10
+        spacing: 10
+        TextInput:
+            id: name_input
+            hint_text: 'Enter your name'
+            size_hint: (None,None)
+            width: 300
+            height: 50
+            multiline: False
+            pos_hint: {'center_x': 0.5}
+
+        TextInput:
+            id: pin_input
+            hint_text: 'Enter a 4-digit PIN'
+            password: True
+            size_hint: (None,None)
+            width: 300
+            height: 50
+            multiline: False
+            pos_hint: {'center_x': 0.5}
+        GridLayout:
+            cols: 2
+            spacing: 10
+            size_hint: (None, None)
+            width: 300
+            height: 50
+            pos_hint: {'center_x': 0.5}
+            Button:
+                text: 'Register'
+                on_press: root.register(name_input.text, pin_input.text)
+
+            Button:
+                text: 'Back to Sign In'
+                on_press: app.root.current = 'sign_in'

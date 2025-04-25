@@ -1,59 +1,57 @@
 from kivy.uix.screenmanager import Screen
 from kivy.uix.popup import Popup
 from kivy.uix.label import Label
+from kivy.uix.textinput import TextInput
+from kivy.uix.button import Button
+from kivy.uix.boxlayout import BoxLayout
+from utils.database import get_account_balance, update_account_balance
 from kivy.lang import Builder
-from kivy.properties import ObjectProperty
-from utils.database import deposit, withdrawal, check_balance, view_transactions
-
-Builder.load_file('assets/styles/AccountManagementScreen.kv')
-
+Builder.load_file('kivy-banking-app/assets/styles/account_management_screen.kv')
 class AccountManagementScreen(Screen):
-    account_id = ObjectProperty(None)
+    account_id = None  # This will be set when the user logs in
 
     def deposit(self):
-        amount = self.get_amount_input("Deposit Amount")
-        if amount is not None:
-            if deposit(self.account_id, amount):
-                self.show_popup("Success", "Deposit successful!")
-            else:
-                self.show_popup("Error", "Deposit failed.")
+        if not self.account_id:
+            self.show_popup("Error", "No account ID found.")
+            return
 
-    def withdraw(self):
-        amount = self.get_amount_input("Withdrawal Amount")
-        if amount is not None:
-            if withdrawal(self.account_id, amount):
-                self.show_popup("Success", "Withdrawal successful!")
-            else:
-                self.show_popup("Error", "Insufficient funds or withdrawal failed.")
+        # Create a popup to enter the deposit amount
+        layout = BoxLayout(orientation='vertical', spacing=10, padding=10)
+        input_field = TextInput(hint_text="Enter deposit amount", multiline=False, input_filter='float')
+        submit_button = Button(text="Submit", size_hint=(None, None), size=(100, 40))
+        cancel_button = Button(text="Cancel", size_hint=(None, None), size=(100, 40))
 
-    def check_balance(self):
-        balance = check_balance(self.account_id)
-        if balance is not None:
-            self.show_popup("Balance", f"Your current balance is: ${balance:.2f}")
-        else:
-            self.show_popup("Error", "Failed to retrieve balance.")
+        popup = Popup(title="Deposit", content=layout, size_hint=(None, None), size=(400, 200))
 
-    def view_transactions(self):
-        transactions = view_transactions(self.account_id)
-        if transactions:
-            transaction_log = "\n".join(
-                [f"{t[2]} - {t[0].capitalize()}: ${t[1]:.2f}" for t in transactions]
-            )
-            self.show_popup("Transaction Log", transaction_log)
-        else:
-            self.show_popup("Transaction Log", "No transactions found.")
+        def submit_deposit(instance):
+            try:
+                amount = float(input_field.text)
+                if amount <= 0:
+                    self.show_popup("Error", "Deposit amount must be greater than zero.")
+                else:
+                    # Update the account balance in the database
+                    update_account_balance(self.account_id, amount, "deposit")
+                    self.show_popup("Success", f"Successfully deposited ${amount:.2f}.")
+                    popup.dismiss()
+            except ValueError:
+                self.show_popup("Error", "Invalid amount entered.")
 
-    def get_amount_input(self, title):
-        try:
-            amount = float(input(f"{title}: "))
-            if amount > 0:
-                return amount
-            else:
-                self.show_popup("Error", "Amount must be greater than 0.")
-        except ValueError:
-            self.show_popup("Error", "Invalid amount. Please enter a valid number.")
-        return None
+        submit_button.bind(on_press=submit_deposit)
+        cancel_button.bind(on_press=popup.dismiss)
+
+        layout.add_widget(input_field)
+        layout.add_widget(submit_button)
+        layout.add_widget(cancel_button)
+        popup.open()
 
     def show_popup(self, title, message):
-        popup = Popup(title=title, content=Label(text=message), size_hint=(None, None), size=(400, 200))
+        layout = BoxLayout(orientation='vertical', spacing=10, padding=10)
+        label = Label(text=message, size_hint=(1, None), height=200)
+        close_button = Button(text="Close", size_hint=(None, None), size=(100, 40))
+
+        popup = Popup(title=title, content=layout, size_hint=(None, None), size=(400, 300))
+        close_button.bind(on_press=popup.dismiss)
+
+        layout.add_widget(label)
+        layout.add_widget(close_button)
         popup.open()

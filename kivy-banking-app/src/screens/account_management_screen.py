@@ -5,7 +5,7 @@ from kivy.lang import Builder
 from kivy.properties import ObjectProperty
 from utils.database import deposit, withdrawal, check_balance, view_transactions
 
-Builder.load_file('assets/styles/main.kv')
+Builder.load_file('assets/styles/AccountManagementScreen.kv')
 
 class AccountManagementScreen(Screen):
     account_id = ObjectProperty(None)
